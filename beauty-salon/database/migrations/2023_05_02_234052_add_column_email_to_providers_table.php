@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('providers', function (Blueprint $table) {
-            $table->string('phone_number')->unique()->change();
+            $table->string('email');
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('providers', function (Blueprint $table) {
-            $table->dropUnique('providers_phone_number_unique');
+            $table->dropColumn('email');
         });
     }
 };
