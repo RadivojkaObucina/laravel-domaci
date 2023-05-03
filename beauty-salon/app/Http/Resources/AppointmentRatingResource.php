@@ -3,6 +3,9 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\ServiceResource;
+use App\Http\Resources\ProviderResource;
 
 class AppointmentRatingResource extends JsonResource
 {
@@ -16,13 +19,13 @@ class AppointmentRatingResource extends JsonResource
 
      public static $wrap = 'appointment_rating';  
 
-    public function toArray($request)
+     public function toArray($request)
     {
         return [
             'date_and_time' => $this->resource->date_and_time,
-            'user' => $this->resource->user,
-            'service' => $this->resource->service,
-            'provider' => $this->resource->provider,
+            'user' => new UserResource($this->resource->userkey),
+            'service' => new ServiceResource($this->resource->servicekey),
+            'provider' => new ProviderResource($this->resource->providerkey),
             'rating' => $this->resource->rating,
             'note' => $this->resource->note,
         ];
