@@ -17,7 +17,10 @@ class ProviderFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name(),
+            'phone_number' => $this->faker->phoneNumber(),
+            'years_of_experience' => $this->faker->numberBetween($min = 1, $max = 30),
+            'email' => $this->faker->unique()->safeEmail(),
         ];
     }
 }
