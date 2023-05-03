@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateAppointmentsRatingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('appointment_ratings', function (Blueprint $table) {
+        Schema::create('appointments_ratings', function (Blueprint $table) {
             $table->id();
             $table->timestamp('date_and_time');
             $table->foreignId('user');
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('appointment_ratings');
+        Schema::dropIfExists('appointments_ratings');
     }
-};
+}

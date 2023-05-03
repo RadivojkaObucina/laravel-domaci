@@ -35,7 +35,6 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin'
         ]);
 
-        
         User::factory(5)->create();
         Provider::factory(10)->create();
 
@@ -48,7 +47,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $service3 = Service::create([
-            'name' => 'Body care'
+            'name' => 'Sauna'
         ]);
 
         $service4 = Service::create([

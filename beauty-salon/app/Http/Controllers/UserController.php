@@ -120,3 +120,4 @@ class UserController extends Controller
         return response()->json('You do not have the privilege to delete user if you are not admin, nor to delete your own account.');
     }
 }
+

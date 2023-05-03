@@ -3,10 +3,10 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+
 use App\Http\Resources\UserResource;
 use App\Http\Resources\ServiceResource;
 use App\Http\Resources\ProviderResource;
-
 class AppointmentRatingResource extends JsonResource
 {
     /**
@@ -15,11 +15,10 @@ class AppointmentRatingResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
-   
 
-     public static $wrap = 'appointment_rating';  
+    public static $wrap = 'appointment_rating';  
 
-     public function toArray($request)
+    public function toArray($request)
     {
         return [
             'date_and_time' => $this->resource->date_and_time,

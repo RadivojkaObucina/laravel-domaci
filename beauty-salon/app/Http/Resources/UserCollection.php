@@ -12,9 +12,8 @@ class UserCollection extends ResourceCollection
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
-   
 
-     public static $wrap = 'users';  
+    public static $wrap = 'users';  
 
     public function toArray($request)
     {

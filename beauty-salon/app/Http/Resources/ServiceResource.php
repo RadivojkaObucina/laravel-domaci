@@ -12,15 +12,13 @@ class ServiceResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
-    
 
-     public static $wrap = 'service'; 
+    public static $wrap = 'service'; 
 
-     public function toArray($request)
-     {
-         return [
-             'id' => $this->resource->id,
-             'name' => $this->resource->name,
-         ];
-     }
+    public function toArray($request)
+    {
+        return [
+            'name' => $this->resource->name,
+        ];
+    }
 }

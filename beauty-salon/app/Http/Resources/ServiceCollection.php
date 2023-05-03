@@ -12,12 +12,11 @@ class ServiceCollection extends ResourceCollection
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
-    
 
-     public static $wrap = 'services'; 
+    public static $wrap = 'services'; 
 
-     public function toArray($request)
-     {
-         return parent::toArray($request);
-     }
+    public function toArray($request)
+    {
+        return parent::toArray($request);
+    }
 }
