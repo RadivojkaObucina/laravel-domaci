@@ -26,9 +26,16 @@ class DatabaseSeeder extends Seeder
         Service::truncate();
         AppointmentRating::truncate();
 
+        $user = User::create([
+            'name' => 'Andrea',
+            'email' => 'deapesic@gmail.com',
+            'password' => Hash::make('andreaAdmin99.'),
+            'email_verified_at' => now(),
+            'remember_token' => Str::random(10),
+            'role' => 'admin'
+        ]);
 
         
-
         User::factory(5)->create();
         Provider::factory(10)->create();
 
