@@ -37,4 +37,3 @@ class AppointmentRating extends Model
         'rating'
     ];
 }
-

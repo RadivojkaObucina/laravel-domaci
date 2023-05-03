@@ -3,8 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\AppointmentRating;
-use Illuminate\Http\Request;
+use App\Models\Provider;
+use App\Models\Service;
 use App\Models\User;
+use Illuminate\Http\Request;
+use App\Http\Resources\AppointmentRatingResource;
+use App\Http\Resources\AppointmentRatingCollection;
+use Illuminate\Support\Facades\Validator;
+
 
 class AppointmentRatingController extends Controller
 {
@@ -36,7 +42,30 @@ class AppointmentRatingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'date_and_time' => 'required|date',
+            'service' => 'required|numeric|gte:1|lte:5',
+            'rating' => 'required|numeric|lte:5|gte:1',
+            'note' => 'required|string|min:20',
+            'provider' => 'required|numeric|gte:1|lte:10',
+        ]);
+
+        if ($validator->fails())
+            return response()->json($validator->errors());
+
+        if(auth()->user()->isAdmin())
+            return response()->json('You are not authorized to create new appointment ratings.'); 
+
+        $apprat = AppointmentRating::create([
+            'date_and_time' => $request->date_and_time,
+            'user' => auth()->user()->id,
+            'service' => $request->service,
+            'rating' => $request->rating,
+            'note' => $request->note,
+            'provider' => $request->provider,
+        ]);
+
+        return response()->json(['Appointment rating is created successfully.', new AppointmentRatingResource($apprat)]);
     }
 
     /**
@@ -68,9 +97,35 @@ class AppointmentRatingController extends Controller
      * @param  \App\Models\AppointmentRating  $appointmentRating
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AppointmentRating $appointmentRating)
+    public function update(Request $request, AppointmentRating $apprat)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'date_and_time' => 'required|date',
+            'service' => 'required|numeric|gte:1|lte:5',
+            'rating' => 'required|numeric|lte:5|gte:1',
+            'note' => 'required|string|min:20',
+            'provider' => 'required|numeric|gte:1|lte:10',
+        ]);
+
+        if ($validator->fails())
+            return response()->json($validator->errors());
+
+        if(auth()->user()->isAdmin())
+            return response()->json('You are not authorized to update appointment ratings.');    
+            
+        if(auth()->user()->id != $apprat->user)
+            return response()->json('You are not authorized to update someone elses appointment ratings.');     
+
+        $apprat->date_and_time = $request->date_and_time;
+        $apprat->user = auth()->user()->id;
+        $apprat->service = $request->service;
+        $apprat->rating = $request->rating;
+        $apprat->note = $request->note;
+        $apprat->provider = $request->provider;
+
+        $apprat->save();
+        
+        return response()->json(['Appointment rating is updated successfully.', new AppointmentRatingResource($apprat)]);
     }
 
     /**
@@ -79,8 +134,18 @@ class AppointmentRatingController extends Controller
      * @param  \App\Models\AppointmentRating  $appointmentRating
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AppointmentRating $appointmentRating)
+    public function destroy(AppointmentRating $apprat)
     {
-        //
+
+        if(auth()->user()->isAdmin())
+            return response()->json('You are not authorized to delete appointment ratings.');    
+            
+        if(auth()->user()->id != $apprat->user)
+            return response()->json('You are not authorized to delete someone elses appointment ratings.');
+
+        $apprat->delete();
+
+        return response()->json('Appointment rating is deleted successfully.');
     }
 }
+
