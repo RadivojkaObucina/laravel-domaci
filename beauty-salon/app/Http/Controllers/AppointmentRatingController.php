@@ -14,7 +14,7 @@ class AppointmentRatingController extends Controller
      */
     public function index()
     {
-        //
+        return new AppointmentRatingCollection(AppointmentRating::all());
     }
 
     /**
@@ -41,12 +41,12 @@ class AppointmentRatingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\AppointmentRating  $appointmentRating
+     * @param  \App\Models\AppointmentRating  $apprat
      * @return \Illuminate\Http\Response
      */
-    public function show(AppointmentRating $appointmentRating)
+    public function show(AppointmentRating $apprat)
     {
-        //
+        return new AppointmentRatingResource($apprat);
     }
 
     /**

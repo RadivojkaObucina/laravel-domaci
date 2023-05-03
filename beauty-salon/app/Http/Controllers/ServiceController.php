@@ -14,7 +14,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        return new ServiceCollection(Service::all());
     }
 
     /**
@@ -46,7 +46,7 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        //
+        return new ServiceResource($service);
     }
 
     /**

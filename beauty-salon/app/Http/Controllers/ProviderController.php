@@ -14,7 +14,9 @@ class ProviderController extends Controller
      */
     public function index()
     {
-        //
+        $providers = Provider::all();
+        return new ProviderCollection($providers);
+
     }
 
     /**
@@ -46,7 +48,7 @@ class ProviderController extends Controller
      */
     public function show(Provider $provider)
     {
-        //
+        return new ProviderResource($provider);
     }
 
     /**
