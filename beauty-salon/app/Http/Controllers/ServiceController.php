@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AppointmentRating;
+use App\Models\Provider;
 use App\Models\Service;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Resources\ServiceResource;
+use App\Http\Resources\ServiceCollection;
 use Illuminate\Support\Facades\Validator;
 
 class ServiceController extends Controller
@@ -43,6 +47,9 @@ class ServiceController extends Controller
 
         if ($validator->fails())
             return response()->json($validator->errors());
+
+        if(auth()->user()->isUser())
+            return response()->json('You are not authorized to create new services.');    
 
         $service = Service::create([
             'name' => $request->name,
@@ -89,8 +96,11 @@ class ServiceController extends Controller
         if ($validator->fails())
             return response()->json($validator->errors());
 
-        $service->name = $request->name;
+        if(auth()->user()->isUser())
+            return response()->json('You are not authorized to update services.');    
 
+        $service->name = $request->name;
+    
         $service->save();
 
         return response()->json(['Service is updated successfully.', new ServiceResource($service)]);
@@ -104,6 +114,16 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
-        //
+
+        if(auth()->user()->isUser())
+            return response()->json('You are not authorized to delete services.'); 
+
+        $apprat = AppointmentRating::get()->where('service', $service->id);
+        if (count($apprat) > 0)
+            return response()->json('You cannot delete services that have appointment ratings.');
+
+        $service->delete();
+
+        return response()->json('Service is deleted successfully.');
     }
 }
