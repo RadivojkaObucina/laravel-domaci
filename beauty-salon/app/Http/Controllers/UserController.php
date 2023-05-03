@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AppointmentRating;
+use App\Models\Provider;
 use App\Models\Service;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\UserCollection;
 
-class ServiceController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +19,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        return new ServiceCollection(Service::all());
+        return new UserCollection(User::all());
     }
 
     /**
@@ -42,21 +46,21 @@ class ServiceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Service  $service
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Service $service)
+    public function show(User $user)
     {
-        return new ServiceResource($service);
+        return new UserResource($user);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Service  $service
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Service $service)
+    public function edit(User $user)
     {
         //
     }
@@ -65,10 +69,10 @@ class ServiceController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Service  $service
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Service $service)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -76,10 +80,10 @@ class ServiceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Service  $service
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Service $service)
+    public function destroy(User $user)
     {
         //
     }
